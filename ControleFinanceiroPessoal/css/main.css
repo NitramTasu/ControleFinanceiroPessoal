@@ -1,0 +1,46 @@
+﻿/*html, body, div {
+    padding: 10px;
+}
+
+.tableform {
+    width: 390px;
+    margin: 0 auto;
+}
+
+
+.movinput {
+    width: 100%;
+}
+
+.div1 {
+    float: left;
+    width: 100px;
+    background: green;
+}
+
+
+.container {
+    overflow: hidden;
+    padding-right: 10px;
+    box-sizing: border-box;
+    background: green;
+}
+
+.div2 {
+    background: yellow;
+    float: left;
+    width: 45%;
+}
+
+.div3 {
+    background: brown;
+    float: right;
+    width: 45%;
+    overflow: hidden;
+}
+}*/
+.panel-custom > .panel-heading{
+    color: #fff;
+    background-color: #55748e;
+    border-color: #337ab7;
+}

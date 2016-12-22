@@ -1,0 +1,103 @@
+﻿@using ControleFinanceiroData.Entidades
+@model Categoria
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+
+    <script type="text/javascript">
+        $("#navcategoria").attr('class', 'active');
+        
+        jQuery.validator.setDefaults({
+            debug: true,
+            success: "valid"
+        });
+
+        function clicou() {
+            var form = $("#myForm");
+
+            form.validate({
+                rules: {
+                    descricao: {
+                        required: true,
+                        minlength: 3
+                    }
+                },
+                messages: {
+                    descricao: "Informe uma descricão para a categoria"
+                }
+            });
+
+            enviar(form);
+        }
+        
+        function resposta(data) {
+            var newrow = "<tr id=\"categoriaId" + data.Id + "\"><td>" + data.Descricao + "</td><td><a href=\"#\" onclick=\" excluir(" + data.Id + ")\">Excluir</a></td></tr>";
+
+            alert("Nova categoria adicionada");
+            $('#tableCategorias tbody').append(newrow);
+        }
+
+        function excluir(idCategoria) {
+            //alert("Entrou");
+            var url = "@Url.Action("Remover", "Categoria")";
+            //alert("Url : "+url);
+            $.post(url, { id: idCategoria }, atualiza);
+        }
+
+        function atualiza(resposta) {
+            //console.log("recebeu resposta " + "#categoriaId" + resposta.Id);
+            var id = "#categoriaId" + resposta.Id
+            $(id).remove();
+        }
+    </script>
+
+
+</head>
+<body>
+    <div class="container">
+
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h4>Adicionar Categoria</h4>
+            </div>
+            <div class="panel panel-body">
+                <div hidden="hidden" id="loadM"></div>
+
+                <form id="myForm" action="/Categoria/Adicionar" method="post">
+                    <div class="form-group">
+                        <label for="descricao">Descrição</label>
+                        <input class="form-control" type="text" id="categoria.descricao" name="descricao" />
+                    </div>
+                    @*<input type="submit" value="Cadastrar" />*@
+                </form>
+                <div class="form-group">
+                    <input class="btn btn-default" type="submit" onclick="clicou();" value="Cadastrar" />
+                </div>
+            </div>
+        </div>
+        <h4>Categorias Cadastradas</h4>
+        <table id="tableCategorias" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var categoria in ViewBag.Categorias)
+                {
+                    <tr id="categoriaId@(categoria.Id)">
+                        <td>@categoria.Descricao</td>
+                        <td><a href="#" onclick="excluir(@categoria.Id);">Excluir</a></td>
+                        @*<td><a href="/Categoria/Remover/@categoria.Id">Excluir</a></td>*@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+﻿
+@model IList<ControleFinanceiroData.Entidades.Movimentacao>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Nova Movimentação</title>
+    <script type="text/javascript">
+        $("#navnewmov").attr('class', 'active');
+        
+
+    </script>
+    
+</head>
+
+<body>
+    <div class="container">
+        
+        
+        <div class="conteudo">
+
+            <div class="panel panel-custom">
+
+                <div class="painel panel-heading" align="center"><h2 id="titulo_mes">Teste</h2></div>
+                <div class="painel panel-body">
+                    <form action="/Movimentacao/Adiciona" id="novamovimentacao" method="post">
+                        <div class="form-group">
+
+                            <td><label for="descricao">Descrição:</label></td>
+                            <td><input id="descricao" name="movimentacao.descricao" class="form-control" /></td>
+
+
+                        </div>
+                        <div class="form-group">
+                            <td><label for="data">Data</label></td>
+                            <td><input id="data" name="movimentacao.data" onfocus="today(this)" maxlength="10" type="text" class="form-control" /></td>
+                        </div>
+
+
+
+                        <label for="tipo" class="label label-info">Tipo:</label>
+                        <div class="radio">
+                            <label><input class="form-check" type="radio" name="movimentacao.tipo" value="1" />Receita</label>
+                        </div>
+                        <div class="radio">
+                            <label><input class="form-check" type="radio" name="movimentacao.tipo" value="2" />Despesa</label>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="categoria">Categoria</label>
+
+                            <select id="categoria" name="movimentacao.CategoriaId" class="form-control">
+                                @foreach (var categoria in ViewBag.Categorias)
+                                {
+                                    <option value="@categoria.Id">@categoria.Descricao</option>
+                                }
+                            </select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo">Valor:</label>
+                            R$<input type="number" step="any" id="valor" name="movimentacao.valor" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <td><input type="submit" value="Adicionar" class="btn btn-primary" /></td>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+            
+
+            <div class="painel panel-primary">
+                <h3 align ="center" >Movimentações do Mês</h3>
+                <div class="panel panel-body">
+                    <table class="table table-bordered">
+
+                        <tbody>
+
+                            @foreach (var mov in Model)
+                            {
+                                <tr>
+                                    <td>@mov.Id</td>
+                                    <td>@mov.Descricao</td>
+                                    <td>R$ @mov.Valor</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

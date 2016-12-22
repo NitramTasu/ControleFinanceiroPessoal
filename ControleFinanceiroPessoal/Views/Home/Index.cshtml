@@ -1,0 +1,160 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Página Inicial</title>
+    <script type="text/javascript">
+        $("#navmov").attr('class', 'active');
+        function excluir(idMovimentacao) {
+
+            
+            var url = "@Url.Action("Remover", "Movimentacao")";
+            console.log("entrou: " + url);
+            $.post(url, { id: idMovimentacao }, atualiza);
+        }
+
+        function atualiza(reposta){
+            var idRow = "#movimentacaoId"+reposta.Id;
+
+            $(idRow).remove();
+
+        }
+    </script>
+</head>
+<body>
+    <div class="container"> 
+        <div class="col-xs-6">
+
+            <div class="panel panel-default">
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="active">
+                            <td>
+                                Entradas e Saídas deste mês:
+                            </td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="active">
+                            <td>
+                                Entradas:
+                            </td>
+                            <td>
+                                @ViewBag.SomaMovRec
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                Saídas:
+                            </td>
+                            <td>
+                                @ViewBag.SomaMovDesp
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                Resultado
+                            </td>
+                            <td>
+                                @(@ViewBag.SomaMovRec - @ViewBag.SomaMovDesp)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-6">
+            <div class="panel panel-default">
+
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr class="active">
+                            <td>
+                                Balanço Geral de todos os meses:
+                            </td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="active">
+                            <td>
+                                Entradas:
+                            </td>
+                            <td>
+                                @ViewBag.TotalReceita
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                Saídas:
+                            </td>
+                            <td>
+                                @ViewBag.TotalDespesa
+                            </td>
+                        </tr>
+                        <tr class="active">
+                            <td>
+                                Resultado:
+                            </td>
+                            <td>
+                                @(@ViewBag.TotalReceita - @ViewBag.TotalDespesa)
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="conteudo">
+            
+            <div class="panel panel-primary">
+                
+                <div class="panel panel-heading">
+
+                    <div class="panel panel-heading">
+                        <h3 align="center">Movimentações do Mês</h3>
+                    </div>
+                    
+                </div>
+                <div class="panel panel-body">
+                    <table class="table table-bordered" id="movimentacoes">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descricao</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var movimentacao in ViewBag.Movimentacoes)
+                            {
+                                <tr id="movimentacaoId@(movimentacao.Id)">
+                                    <td>@movimentacao.Id</td>
+                                    <td>@movimentacao.Descricao</td>
+                                    <td>@movimentacao.Valor</td>
+                                    <td><a href="#" onclick="excluir(@movimentacao.Id);">Excluir</a></td>
+                                    
+                                </tr>
+
+                            }
+                            <tr></tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+             
+        </div>
+        
+
+        
+    </div>
+
+</body>
+</html>
