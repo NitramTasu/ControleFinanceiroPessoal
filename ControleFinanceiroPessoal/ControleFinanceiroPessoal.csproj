@@ -270,7 +270,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ControleFinanceiroData\ControleFinanceiroData\ControleFinanceiroData.csproj">
+    <ProjectReference Include="..\ControleFinanceiroData\ControleFinanceiroData\ControleFinanceiroData.csproj">
       <Project>{4a13302e-d107-4a44-aa5f-8e0cd143c3f8}</Project>
       <Name>ControleFinanceiroData</Name>
     </ProjectReference>
